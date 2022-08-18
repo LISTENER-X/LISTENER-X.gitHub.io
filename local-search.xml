@@ -53,5 +53,18 @@
   
   
   
+  <entry>
+    <title>Shell</title>
+    <link href="/2021/08/06/Shell/"/>
+    <url>/2021/08/06/Shell/</url>
+    
+    <content type="html"><![CDATA[<p><strong>用shell脚本进行批量用户的创建</strong></p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">#</span><span class="language-bash">!/usr/bin/bash</span><br><br>read  -p   &quot;请输入用户前缀|密码|数量: &quot; rep  pass  num<br><br>if [[ ! $num =~ ^[0-9]+$ ]];then<br>echo &quot;Error 请输入数字!&quot;<br>fi<br><br>cat   &lt;&lt;-EOF<br>你输入的用户名前缀是: $rep<br>你输入的统一密码是: $pass<br>你要创建的数量: $num<br>EOF<br><br>read  -p  &quot;你确定要创建吗?[y|n]&quot;  aredy<br>case  $aredy in<br>y|Y|yes|YES)<br>for  i in   $(seq  $num)<br>do <br>username=$rep$i<br>id $username &amp;&gt;/dev/null<br>if [ $? -eq 1  ];then //判断id 用户是否存在，如果不存在(echo $?=1)则创建<br>useradd  $username &amp;&amp; \<br>echo &quot;$pass&quot; | passwd --stdin  $username &amp;&gt;/dev/null<br>echo &quot;$username  is  OK!&quot;<br>fi<br>done<br>;;<br>n|N|No|NO)<br>exit 1<br>;;<br>*)<br> read  -p  &quot;你确定要创建吗?[y|n]&quot;  aredy<br>esac<br></code></pre></td></tr></table></figure><p><strong>总结：</strong></p><p><strong>其实用shell实现批量创建用户的方法有很多种，这里只是其中一种，作为一个小小的参考。也欢迎大家在评论区留言，一起交流下其他的方法。</strong></p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
   
 </search>
